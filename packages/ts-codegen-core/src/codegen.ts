@@ -15,20 +15,9 @@ export const codegen = (codegenConfig = getCodegenConfig()) => {
     console.error(ERROR_MESSAGES.EMPTY_API_SPECS_PATHS);
     return;
   }
-  // let __commonText = '';
   apiSpecsPaths.forEach((item) => {
-    // __commonText += `export * from './api/${item.name}.ts'\n`;
     hasHttpOrHttps(item.path) ? handleRemoteApiSpec(item, codegenConfig) : handleLocalApiSpec(item, codegenConfig);
   });
-  // const outputFolder = codegenConfig.outputFolder as string;
-  // const writeCommonExport = (output: string, filename: string, str: string) => {
-  //   if (!fs.existsSync(output)) {
-  //     fs.mkdirSync(output, { recursive: true });
-  //   }
-
-  //   fs.writeFileSync(path.resolve(output, `./${filename}.ts`), str, "utf-8");
-  // };
-  // writeCommonExport(outputFolder, 'index', __commonText)
 };
 
 const getFilePath = (configPath?: string, jsonConfigPath?: string, jsConfigPath?: string) => {
@@ -204,11 +193,11 @@ const write = (output: string, filename: string, str: string) => {
   if (!fs.existsSync(output)) {
     fs.mkdirSync(output, { recursive: true });
   }
-  if (!fs.existsSync(output + '/api')) {
-    fs.mkdirSync(output + '/api', { recursive: true });
+  if (!fs.existsSync(output )) {
+    fs.mkdirSync(output, { recursive: true });
   }
 
-  fs.writeFileSync(path.resolve(output, `./api/${filename}.ts`), str, "utf-8");
+  fs.writeFileSync(path.resolve(output, `./${filename}.ts`), str, "utf-8");
 };
 
 const fetchRemoteSpec = (url: string, timeout: number = 180000) => {
