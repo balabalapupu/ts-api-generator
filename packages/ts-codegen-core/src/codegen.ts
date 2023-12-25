@@ -64,7 +64,7 @@ const updateSpecByHooks = (codegenConfig: CodegenConfig, spec: CustomSpec) => {
 
 function findDefinitionTypesArr(currentArray: string[], res: any, totalNewDefinition: any) {
   currentArray.forEach(item => {
-    if (totalNewDefinition[item]) {
+    if (totalNewDefinition[item] && !res[item]) {
       res[item] = totalNewDefinition[item];
       const curDefinitionType = JSON.stringify(totalNewDefinition[item]);
       const matches = [...curDefinitionType.matchAll(regexDefinition)];
