@@ -1,0 +1,31 @@
+{
+  "outputFolder": "clients",
+  "requestCreateLib": "../../examples/utils/createRequest",
+  "requestCreateMethod": "createRequest",
+  "apiSpecsPaths": [
+    {
+      "path": "https://swagger-dev-classic.3ren.cn/activity-center//v2/api-docs",
+      "name": "activity-center",
+      "update": true,
+      "updateRequest": [
+        "/action/record/save",
+        "/test/activity/getActivityPageByKeyword",
+        "/test/activity/statisticsAppraiseByActivityIdsAndUserId",
+        "/test/activity/test"
+      ]
+    },
+    {
+      "path": "https://swagger-dev-classic.3ren.cn/tenant-center//v2/api-docs",
+      "name": "tenant-center",
+      "update": true,
+      "updateRequest": [
+        "/banner/listPage"
+      ]
+    }
+  ],
+  "options": {
+    "withComments": true,
+    "backwardCompatible": true,
+    "withServiceNameInHeader": true
+  }
+}

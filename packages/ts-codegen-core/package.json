@@ -1,0 +1,36 @@
+{
+  "name": "@ts-tools/ts-api-generator-core",
+  "version": "3.3.4",
+  "main": "dist/lib/index.js",
+  "module": "dist/module/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "ts-node -r tsconfig-paths/register src/bootstrap.ts",
+    "dev": "pnpm start",
+    "build": "pnpm clean && pnpm build:types && pnpm copy && pnpm rollup",
+    "copy": "ts-node ../../scripts/copy.ts",
+    "rollup": "rollup -c ./rollup.config.js",
+    "test": "tsc && jest",
+    "clean": "rm -rf dist",
+    "build:types": "tsc --build ./tsconfig.declarations.json"
+  },
+  "dependencies": {
+    "axios": "0.21.x",
+    "js-yaml": "4.0.x",
+    "lodash": "4.17.x",
+    "prettier": "2.8.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "reeli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balabalapupu/ts-api-generator/issues"
+  },
+  "homepage": "https://github.com/balabalapupu/ts-api-generator#readme"
+}

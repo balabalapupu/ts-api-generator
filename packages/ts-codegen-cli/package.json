@@ -1,0 +1,31 @@
+{
+  "name": "@ts-tools/ts-api-generator-cli",
+  "version": "3.3.4",
+  "main": "dist/lib/index.js",
+  "bin": {
+    "ts-codegen": "bin/cli.js"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "dependencies": {
+    "@ts-tool/ts-codegen-core": "^3.3.4",
+    "commander": "7.1.x",
+    "prettier": "2.2.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "reeli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balabalapupu/ts-api-generator/issues"
+  },
+  "homepage": "https://github.com/balabalapupu/ts-api-generator#readme",
+  "scripts": {
+    "build": "pnpm clean && pnpm rollup",
+    "rollup": "rollup -c ./rollup.config.js",
+    "clean": "rm -rf dist"
+  }
+}
