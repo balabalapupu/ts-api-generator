@@ -35,10 +35,11 @@ const printRequest = (clientConfigs: IClientConfig[], requestCreateMethod: strin
       };
       const toHeaders = () => {
         if (v.contentType && options?.withServiceNameInHeader) {
-          return `headers: { 'Content-Type': '${v.contentType}', '${isString(options?.withServiceNameInHeader)
+          return `headers: { 'Content-Type': '${v.contentType}', '${
+            isString(options?.withServiceNameInHeader)
               ? options?.withServiceNameInHeader
               : DEFAULT_SERVICE_NAME_IN_HEADER
-            }': serviceName },`;
+          }': serviceName },`;
         }
 
         if (v.contentType) {
@@ -46,25 +47,30 @@ const printRequest = (clientConfigs: IClientConfig[], requestCreateMethod: strin
         }
 
         if (options?.withServiceNameInHeader) {
-          return `headers: { '${isString(options?.withServiceNameInHeader)
+          return `headers: { '${
+            isString(options?.withServiceNameInHeader)
               ? options?.withServiceNameInHeader
               : DEFAULT_SERVICE_NAME_IN_HEADER
-            }': serviceName },`;
+          }': serviceName },`;
         }
 
         return "";
       };
-      
-      let TReqType = '';
+
+      let TReqType = "";
       const toGenerators = () => {
         let TReq = generateTReq(v.TReq);
         const TResp = v.TResp?.toType(false);
-        if (TReq?.includes('{')) {
+        if (TReq?.includes("{")) {
           const c = v.operationId as string;
-          const __operationId = c.replace(/{[^}]+}/g, 'Tag');
+          let words = c.split(/[-_]/);
+          words = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+          let newString = words.join("");
 
-          TReqType = `export interface ${__operationId + 'DTO'} ${TReq}`
-          TReq = __operationId + 'DTO';
+          const __operationId = newString.replace(/{[^}]+}/g, "Tag");
+
+          TReqType = `export interface ${__operationId + "DTO"} ${TReq}`;
+          TReq = __operationId + "DTO";
         }
         if (!TReq && !TResp) {
           return "";
@@ -74,7 +80,6 @@ const printRequest = (clientConfigs: IClientConfig[], requestCreateMethod: strin
         }
         return `<${TReq}, ${TResp}>`;
       };
-
 
       const toRequestInputs = () => {
         const getRequestBody = () => {
@@ -89,12 +94,16 @@ const printRequest = (clientConfigs: IClientConfig[], requestCreateMethod: strin
       // debugger
       const __commit = addComments(v, options?.withComments);
       const __requestCommitType = toGenerators();
-
+      const r = v.operationId as string;
+      let words = r.split(/[-_]/);
+          words = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+          let newString = words.join("");
       return `
       ${TReqType}
 ${__commit}
-export const ${v.operationId} = ${requestCreateMethod}${__requestCommitType}("${v.operationId
-        }", (${toRequestInputs()}) => ({${toUrl()}${toMethod()}${toRequestBody()}${toQueryParams()}${toHeaders()}})
+export const ${newString} = ${requestCreateMethod}${__requestCommitType}("${
+        newString
+      }", (${toRequestInputs()}) => ({${toUrl()}${toMethod()}${toRequestBody()}${toQueryParams()}${toHeaders()}})
 );
 `;
     })

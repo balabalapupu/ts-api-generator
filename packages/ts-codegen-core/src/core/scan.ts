@@ -34,7 +34,7 @@ export const scan = (data: CustomSpec, options?: ScanOptions, hooks?: Hooks) => 
       : getClientConfigsV3(paths, basePath, register);
   const decls = register.getDecls();
   if (options?.typeWithPrefix) {
-    register.renameAllRefs((key) => decls[key].name);
+    register.renameAllRefs((key) => decls[key]?.name);
   }
 
   return { clientConfigs, decls };

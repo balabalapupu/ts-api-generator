@@ -1,4 +1,4 @@
-import { getFilename, toJSONObj, hasHttpOrHttps, getUnifiedInputs } from "./utils";
+import { getFilename, toJSONObj, hasHttpOrHttps, getUnifiedInputs, isOpenApi } from "./utils";
 import axios from "axios";
 import { isEmpty } from "lodash";
 import * as fs from "fs";
@@ -7,7 +7,11 @@ import { scan, printOutputs } from "./core";
 import { ERROR_MESSAGES, SERVICE_VARIABLE_NAME } from "./constants";
 import { CustomSpec, CodegenConfig, ApiSpecsPath } from "./__types__/types";
 import yaml from "js-yaml";
-const regexDefinition = /#\/definitions\/(.*?)"/g;
+// "#/components/schemas/Res"
+const allRegexDefinition = /#\/definitions\/([^"]*)/g;
+const groupRegex = /#\/definitions\/([^"]*)/;
+const allRegexDefinitionOpenApi = /#\/components\/schemas\/([^"]*)/g;
+const groupRegexOpenApi = /#\/components\/schemas\/([^"]*)/;
 export const codegen = (codegenConfig = getCodegenConfig()) => {
   const { apiSpecsPaths } = codegenConfig;
 
@@ -20,6 +24,39 @@ export const codegen = (codegenConfig = getCodegenConfig()) => {
   });
 };
 
+function extractCaptureGroups(input: string): string[] {
+  const matches = input.match(allRegexDefinition);
+  let captureGroups: string[] = [];
+  if (matches) {
+    captureGroups = matches
+      .map((match) => {
+        const matchGroup = match.match(groupRegex);
+        if (matchGroup) {
+          return matchGroup[1];
+        }
+        return "";
+      })
+      .filter((group) => group !== "");
+  }
+  return captureGroups;
+}
+
+function extractCaptureGroupsOpenApi(input: string): string[] {
+  const matches = input.match(allRegexDefinitionOpenApi);
+  let captureGroups: string[] = [];
+  if (matches) {
+    captureGroups = matches
+      .map((match) => {
+        const matchGroup = match.match(groupRegexOpenApi);
+        if (matchGroup) {
+          return matchGroup[1];
+        }
+        return "";
+      })
+      .filter((group) => group !== "");
+  }
+  return captureGroups;
+}
 const getFilePath = (configPath?: string, jsonConfigPath?: string, jsConfigPath?: string) => {
   if (configPath && fs.existsSync(configPath)) {
     return configPath;
@@ -63,25 +100,75 @@ const updateSpecByHooks = (codegenConfig: CodegenConfig, spec: CustomSpec) => {
 };
 
 function findDefinitionTypesArr(currentArray: string[], res: any, totalNewDefinition: any) {
-  currentArray.forEach(item => {
+  currentArray.forEach((item) => {
     if (totalNewDefinition[item] && !res[item]) {
       res[item] = totalNewDefinition[item];
       const curDefinitionType = JSON.stringify(totalNewDefinition[item]);
-      const matches = [...curDefinitionType.matchAll(regexDefinition)];
-      const resultArray = matches.map((match) => match[1]);
-      findDefinitionTypesArr(resultArray, res, totalNewDefinition)
+      const resultArray = extractCaptureGroups(curDefinitionType);
+      findDefinitionTypesArr(resultArray, res, totalNewDefinition);
     }
-  })
+  });
   return res;
 }
 
+function findDefinitionTypesArrOpenApi(currentArray: string[], res: any, totalNewDefinition: any) {
+  currentArray.forEach((item) => {
+    if (totalNewDefinition[item] && !res[item]) {
+      res[item] = totalNewDefinition[item];
+      const curDefinitionType = JSON.stringify(totalNewDefinition[item]);
+      const resultArray = extractCaptureGroupsOpenApi(curDefinitionType);
+      findDefinitionTypesArrOpenApi(resultArray, res, totalNewDefinition);
+    }
+  });
+  return res;
+}
+
+function convertOriginTypeList(originData: any, updateRequest: string[], __data: any) {
+  updateRequest.forEach((item) => {
+    const curTargetUrlDetail = __data?.paths[item];
+    if (curTargetUrlDetail && originData.paths) {
+      originData.paths[item] = curTargetUrlDetail;
+    }
+    if (curTargetUrlDetail && __data.definitions) {
+      const inputURLString = JSON.stringify(curTargetUrlDetail);
+      const currentArray = extractCaptureGroups(inputURLString);
+      const res: any = findDefinitionTypesArr(currentArray, {}, __data.definitions);
+      if (originData.definitions && Object.keys(res).length > 0) {
+        Object.keys(res).forEach((__item) => {
+          originData.definitions[__item] = res[__item];
+        });
+      }
+    }
+  });
+  return originData;
+}
+
+function convertOriginTypeListOpenApi(originData: any, updateRequest: string[], __data: any) {
+  updateRequest.forEach((item) => {
+    const curTargetUrlDetail = __data?.paths[item];
+    if (curTargetUrlDetail && originData.paths) {
+      originData.paths[item] = curTargetUrlDetail;
+    }
+    if (curTargetUrlDetail && __data.components.schemas) {
+      const inputURLString = JSON.stringify(curTargetUrlDetail);
+      const currentArray = extractCaptureGroupsOpenApi(inputURLString);
+      const res: any = findDefinitionTypesArrOpenApi(currentArray, {}, __data.components.schemas);
+      if (originData.components.schemas && Object.keys(res).length > 0) {
+        Object.keys(res).forEach((__item) => {
+          originData.components.schemas[__item] = res[__item];
+        });
+      }
+    }
+  });
+  return originData;
+}
 /**
  * step3 转化和覆写都在这里
- * @param fileType 
- * @param getData 
- * @param codegenConfig 
- * @param filename 
- * @returns 
+ * @param fileType
+ * @param getData
+ * @param codegenConfig
+ * @param filename
+ * @returns
  */
 const covertAndWrite = (
   fileType: string = "",
@@ -98,51 +185,65 @@ const covertAndWrite = (
     throw new Error(ERROR_MESSAGES.INVALID_FILE_EXT_ERROR);
   }
   let __data: any = getData();
-  const curApiSpecsConfig = codegenConfig.apiSpecsPaths.find(item => item.name == filename);
-  if (curApiSpecsConfig?.update && curApiSpecsConfig?.updateRequest && curApiSpecsConfig.updateRequest.length > 0) {
-    // 过滤 现在只有swagger2的格式
-    const originJson = codegenConfig?.outputFolder + '/' + filename + '.json';
-    if (fs.existsSync(originJson)) { // 需要有源文件
-      const getOriginData = () => fs.readFileSync(originJson, "utf8");
-      let __originData = JSON.parse(getOriginData());
-      // 找到新文件的url和类型，放到旧的里面，反正有 tree-shaking,问题不大
-      if (curApiSpecsConfig.updateRequest && curApiSpecsConfig?.updateRequest.length > 0) {
-        __data = convertOriginTypeList(__originData, curApiSpecsConfig.updateRequest);
-      }
-    } else {
-      // 没有源文件
-      const __originData = {
-        ...__data,
-        paths: {},
-        definitions: {}
-      };
-      if (curApiSpecsConfig.updateRequest && curApiSpecsConfig?.updateRequest.length > 0) {
-        __data = convertOriginTypeList(__originData, curApiSpecsConfig.updateRequest);
-      }
-    }
-  }
-
-  function convertOriginTypeList(originData: any, updateRequest: string[]) {
-    updateRequest.forEach(item => {
-      const curTargetUrlDetail = __data?.paths[item];
-      if (curTargetUrlDetail && originData.paths) {
-        originData.paths[item] = curTargetUrlDetail;
-      }
-      if (curTargetUrlDetail && __data.definitions) {
-        const inputURLString = JSON.stringify(curTargetUrlDetail);
-        const matches = [...inputURLString.matchAll(regexDefinition)];
-        const currentArray = matches.map((match) => match[1]);
-        const res: any = findDefinitionTypesArr(currentArray, {}, __data.definitions)
-        if (originData.definitions && Object.keys(res).length > 0) {
-          Object.keys(res).forEach(__item => {
-            originData.definitions[__item] = res[__item];
-          })
+  const spec = toJSONObj(__data, ERROR_MESSAGES.INVALID_JSON_FILE_ERROR);
+  if (!isOpenApi(spec)) {
+    const curApiSpecsConfig = codegenConfig.apiSpecsPaths.find((item) => item.name == filename);
+    if (curApiSpecsConfig?.update && curApiSpecsConfig?.updateRequest && curApiSpecsConfig.updateRequest.length > 0) {
+      // 过滤 现在只有swagger2的格式
+      const originJson = codegenConfig?.outputFolder + "/" + filename + ".json";
+      if (fs.existsSync(originJson)) {
+        // 需要有源文件
+        const getOriginData = () => fs.readFileSync(originJson, "utf8");
+        let __originData = JSON.parse(getOriginData());
+        // 找到新文件的url和类型，放到旧的里面，反正有 tree-shaking,问题不大
+        if (curApiSpecsConfig.updateRequest && curApiSpecsConfig?.updateRequest.length > 0) {
+          __data = convertOriginTypeList(__originData, curApiSpecsConfig.updateRequest, spec);
+        }
+      } else {
+        // 没有源文件
+        const __originData = {
+          ...__data,
+          paths: {},
+          definitions: {},
+        };
+        if (curApiSpecsConfig.updateRequest && curApiSpecsConfig?.updateRequest.length > 0) {
+          __data = convertOriginTypeList(__originData, curApiSpecsConfig.updateRequest, spec);
         }
       }
-    })
-    return originData;
+    }
+
+    writeOriginFile(codegenConfig.outputFolder || "client", `./${filename}`, JSON.stringify(__data));
+  } else {
+    debugger
+    const curApiSpecsConfig = codegenConfig.apiSpecsPaths.find((item) => item.name == filename);
+    if (curApiSpecsConfig?.update && curApiSpecsConfig?.updateRequest && curApiSpecsConfig.updateRequest.length > 0) {
+      // 过滤 现在只有swagger2的格式
+      const originJson = codegenConfig?.outputFolder + "/" + filename + ".json";
+      if (fs.existsSync(originJson)) {
+        // 需要有源文件
+        const getOriginData = () => fs.readFileSync(originJson, "utf8");
+        let __originData = JSON.parse(getOriginData());
+        // 找到新文件的url和类型，放到旧的里面，反正有 tree-shaking,问题不大
+        if (curApiSpecsConfig.updateRequest && curApiSpecsConfig?.updateRequest.length > 0) {
+          __data = convertOriginTypeListOpenApi(__originData, curApiSpecsConfig.updateRequest, spec);
+        }
+      } else {
+        // 没有源文件
+        const __originData = {
+          ...__data,
+          paths: {},
+          components: {
+            schemas: {},
+          },
+        };
+        if (curApiSpecsConfig.updateRequest && curApiSpecsConfig?.updateRequest.length > 0) {
+          __data = convertOriginTypeListOpenApi(__originData, curApiSpecsConfig.updateRequest, spec);
+        }
+      }
+    }
+
+    writeOriginFile(codegenConfig.outputFolder || "client", `./${filename}`, JSON.stringify(__data));
   }
-  writeOriginFile(codegenConfig.outputFolder || 'client', `./${filename}`, JSON.stringify(__data));
 
   // handle json file
   if (isJSON(fileType)) {
@@ -161,11 +262,11 @@ const covertAndWrite = (
 };
 
 /**
- * 
- * @param spec 
- * @param codegenConfig 
- * @param filename 
- * @returns 
+ *
+ * @param spec
+ * @param codegenConfig
+ * @param filename
+ * @returns
  */
 const writeSpecToFile = (spec: CustomSpec, codegenConfig: CodegenConfig, filename?: string) => {
   const { outputFolder, requestCreateLib, requestCreateMethod, options, hooks } = codegenConfig;
@@ -178,7 +279,6 @@ const writeSpecToFile = (spec: CustomSpec, codegenConfig: CodegenConfig, filenam
   const { basePath } = getUnifiedInputs(spec, filename);
   const serviceNameStr = options?.withServiceNameInHeader ? `const ${SERVICE_VARIABLE_NAME} = '${filename}';\n\n` : "";
   const fileStr = `${importLib} ${serviceNameStr} ${printOutputs(clientConfigs, decls, requestCreateMethod, options)}`;
-
   write(outputFolder || "clients", `./${filename || getFilename(basePath)}`, fileStr);
 };
 
@@ -193,7 +293,7 @@ const write = (output: string, filename: string, str: string) => {
   if (!fs.existsSync(output)) {
     fs.mkdirSync(output, { recursive: true });
   }
-  if (!fs.existsSync(output )) {
+  if (!fs.existsSync(output)) {
     fs.mkdirSync(output, { recursive: true });
   }
 

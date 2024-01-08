@@ -1,0 +1,4040 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "recommender-system",
+      "description": "Here's a longer description of the custom **OpenAPI** schema",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/ping/health": {
+        "get": {
+          "summary": "Ping Health",
+          "operationId": "ping_health_ping_health_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/user/user_info": {
+        "get": {
+          "tags": ["user"],
+          "summary": "User Info",
+          "description": "获取登录的用户的信息",
+          "operationId": "user_info_recommender_system_user_user_info_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/general/hot": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Hot",
+          "description": "热门资源，没有资源时返回空array。",
+          "operationId": "hot_recommender_system_resource_platform_general_hot_get",
+          "parameters": [
+            {
+              "name": "subject_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "学科id",
+                "title": "Subject Id"
+              },
+              "description": "学科id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/general/subject_book": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Subject Book",
+          "description": "学科-教材信息",
+          "operationId": "subject_book_recommender_system_resource_platform_general_subject_book_get",
+          "parameters": [
+            {
+              "name": "stage_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "学段id",
+                "title": "Stage Id"
+              },
+              "description": "学段id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/general/package": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Package",
+          "description": "资源包列表",
+          "operationId": "package_recommender_system_resource_platform_general_package_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter_type/book_list": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Book List",
+          "description": "获取某教材下所有的章节类型信息，也就是年级学期信息",
+          "operationId": "book_list_recommender_system_resource_platform_chapter_type_book_list_get",
+          "parameters": [
+            {
+              "name": "stage_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "学段id",
+                "title": "Stage Id"
+              },
+              "description": "学段id"
+            },
+            {
+              "name": "subject_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "学科id",
+                "title": "Subject Id"
+              },
+              "description": "学科id"
+            },
+            {
+              "name": "book_version_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "教材版本id",
+                "title": "Book Version Id"
+              },
+              "description": "教材版本id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter/one": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Get One",
+          "description": "查询tag",
+          "operationId": "get_one_recommender_system_resource_platform_chapter_one_get",
+          "parameters": [
+            {
+              "name": "chapter_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "章节id",
+                "title": "Chapter Id"
+              },
+              "description": "章节id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter/chapter_tree": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Chapter Tree",
+          "description": "获取某章节树",
+          "operationId": "chapter_tree_recommender_system_resource_platform_chapter_chapter_tree_get",
+          "parameters": [
+            {
+              "name": "type_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "章节树类型ID",
+                "title": "Type Id"
+              },
+              "description": "章节树类型ID"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter/chapter_tree_by_src_id": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Chapter Tree By Src Id",
+          "description": "通过src_id获取某章节树",
+          "operationId": "chapter_tree_by_src_id_recommender_system_resource_platform_chapter_chapter_tree_by_src_id_get",
+          "parameters": [
+            {
+              "name": "src_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "章节树类型src_id",
+                "title": "Src Id"
+              },
+              "description": "章节树类型src_id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter/chapter_tree_download": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Chapter Tree Download",
+          "description": "章节树下载",
+          "operationId": "chapter_tree_download_recommender_system_resource_platform_chapter_chapter_tree_download_get",
+          "parameters": [
+            {
+              "name": "type_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "类型ID",
+                "title": "Type Id"
+              },
+              "description": "类型ID"
+            },
+            {
+              "name": "download_file_name",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "description": "下载文件名称",
+                "title": "Download File Name"
+              },
+              "description": "下载文件名称"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter/all_chapter_tree_download": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "All Chapter Tree Download",
+          "description": "全体章节树下载",
+          "operationId": "all_chapter_tree_download_recommender_system_resource_platform_chapter_all_chapter_tree_download_get",
+          "parameters": [
+            {
+              "name": "stage_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "学段id",
+                "title": "Stage Id"
+              },
+              "description": "学段id"
+            },
+            {
+              "name": "subject_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "学科id",
+                "title": "Subject Id"
+              },
+              "description": "学科id"
+            },
+            {
+              "name": "book_version_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "教材版本id",
+                "title": "Book Version Id"
+              },
+              "description": "教材版本id"
+            },
+            {
+              "name": "download_file_name",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "description": "下载文件名称",
+                "default": "全体章节树.xls",
+                "title": "Download File Name"
+              },
+              "description": "下载文件名称"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/chapter/all_chapter_tree_download_zip": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "All Chapter Tree Download",
+          "description": "全体章节树下载-按教材版本区分的zip包",
+          "operationId": "all_chapter_tree_download_recommender_system_resource_platform_chapter_all_chapter_tree_download_zip_get",
+          "parameters": [
+            {
+              "name": "download_file_name",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "description": "下载文件名称",
+                "default": "全体章节树.zip",
+                "title": "Download File Name"
+              },
+              "description": "下载文件名称"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/module_list": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Module List",
+          "description": "章节-资源模块列表",
+          "operationId": "module_list_recommender_system_resource_platform_resource_module_list_get",
+          "parameters": [
+            {
+              "name": "chapter_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "章节id",
+                "title": "Chapter Id"
+              },
+              "description": "章节id"
+            },
+            {
+              "name": "package_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "资源库id",
+                "title": "Package Id"
+              },
+              "description": "资源库id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/module_list_overview": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Module List Overview",
+          "description": "章节-资源模块列表-概览",
+          "operationId": "module_list_overview_recommender_system_resource_platform_resource_module_list_overview_get",
+          "parameters": [
+            {
+              "name": "chapter_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "章节id",
+                "title": "Chapter Id"
+              },
+              "description": "章节id"
+            },
+            {
+              "name": "package_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "资源库id",
+                "title": "Package Id"
+              },
+              "description": "资源库id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/list": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Resource List",
+          "description": "章节资源列表",
+          "operationId": "resource_list_recommender_system_resource_platform_resource_list_get",
+          "parameters": [
+            {
+              "name": "chapter_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "章节id",
+                "title": "Chapter Id"
+              },
+              "description": "章节id"
+            },
+            {
+              "name": "package_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "资源库id",
+                "title": "Package Id"
+              },
+              "description": "资源库id"
+            },
+            {
+              "name": "module_type",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "description": "模块id",
+                "title": "Module Type"
+              },
+              "description": "模块id"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "description": "page, 1表示第1页面，默认值为-1，代表不分页。",
+                "default": -1,
+                "title": "Page"
+              },
+              "description": "page, 1表示第1页面，默认值为-1，代表不分页。"
+            },
+            {
+              "name": "size",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "description": "size, 每页条数",
+                "default": 10,
+                "title": "Size"
+              },
+              "description": "size, 每页条数"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/one": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Resource One",
+          "description": "资源详情",
+          "operationId": "resource_one_recommender_system_resource_platform_resource_one_get",
+          "parameters": [
+            {
+              "name": "resource_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "资源id",
+                "title": "Resource Id"
+              },
+              "description": "资源id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/unit_relation_detail": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Unit Relation Detail",
+          "description": "教材单元关系图-详情",
+          "operationId": "unit_relation_detail_recommender_system_resource_platform_resource_unit_relation_detail_get",
+          "parameters": [
+            {
+              "name": "resource_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "资源id",
+                "title": "Resource Id"
+              },
+              "description": "资源id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/unit_plan_detail": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Unit Plan Detail",
+          "description": "单元规划图-详情",
+          "operationId": "unit_plan_detail_recommender_system_resource_platform_resource_unit_plan_detail_get",
+          "parameters": [
+            {
+              "name": "resource_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "资源id",
+                "title": "Resource Id"
+              },
+              "description": "资源id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/ppt_preview": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Ppt Preview",
+          "description": "ppt_预览",
+          "operationId": "ppt_preview_recommender_system_resource_platform_resource_ppt_preview_get",
+          "parameters": [
+            {
+              "name": "resource_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "资源id",
+                "title": "Resource Id"
+              },
+              "description": "资源id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/view_record": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Resource View Record",
+          "description": "查看资源的历史记录，没有记录时返回None",
+          "operationId": "resource_view_record_recommender_system_resource_platform_resource_view_record_get",
+          "parameters": [
+            {
+              "name": "subject_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "学科id",
+                "title": "Subject Id"
+              },
+              "description": "学科id"
+            },
+            {
+              "name": "module_type",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "模块id",
+                "title": "Module Type"
+              },
+              "description": "模块id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/chapter_view_record": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Chapter View Record",
+          "description": "查看章节的历史记录，没有记录时返回None",
+          "operationId": "chapter_view_record_recommender_system_resource_platform_resource_chapter_view_record_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/editable": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Editable",
+          "description": "查看资源是否可编辑",
+          "operationId": "editable_recommender_system_resource_platform_resource_editable_get",
+          "parameters": [
+            {
+              "name": "resource_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "资源id",
+                "title": "Resource Id"
+              },
+              "description": "资源id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/resource_platform/resource/get_jump_url": {
+        "get": {
+          "tags": ["resource_platform"],
+          "summary": "Get Jump Url",
+          "description": "获取跳转url",
+          "operationId": "get_jump_url_recommender_system_resource_platform_resource_get_jump_url_get",
+          "parameters": [
+            {
+              "name": "resource_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "资源id",
+                "title": "Resource Id"
+              },
+              "description": "资源id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/news_information/news/upload": {
+        "post": {
+          "tags": ["news_information"],
+          "summary": "Upload By File",
+          "description": "上传表格文件流",
+          "operationId": "upload_by_file_recommender_system_news_information_news_upload_post",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_upload_by_file_recommender_system_news_information_news_upload_post"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/news_information/news/get_news_by_tag": {
+        "get": {
+          "tags": ["news_information"],
+          "summary": "Get News By Tag",
+          "description": "返回不同类别资讯",
+          "operationId": "get_news_by_tag_recommender_system_news_information_news_get_news_by_tag_get",
+          "parameters": [
+            {
+              "name": "tag",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "资讯标签",
+                "default": "",
+                "title": "Tag"
+              },
+              "description": "资讯标签"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "description": "page, 1表示第1页面，默认值为-1，代表不分页。",
+                "default": -1,
+                "title": "Page"
+              },
+              "description": "page, 1表示第1页面，默认值为-1，代表不分页。"
+            },
+            {
+              "name": "size",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "description": "size, 每页条数",
+                "default": 10,
+                "title": "Size"
+              },
+              "description": "size, 每页条数"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/news_information/news/latest": {
+        "get": {
+          "tags": ["news_information"],
+          "summary": "Get Latest News",
+          "description": "工作台首页返回两条最新资讯",
+          "operationId": "get_latest_news_recommender_system_news_information_news_latest_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/news_information/news/tag_mapper": {
+        "get": {
+          "tags": ["news_information"],
+          "summary": "Get Tag Mapper",
+          "description": "资讯标签映射表",
+          "operationId": "get_tag_mapper_recommender_system_news_information_news_tag_mapper_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/task_list": {
+        "get": {
+          "tags": ["ai_task_chain"],
+          "summary": "Task List",
+          "description": "查询任务列表",
+          "operationId": "task_list_recommender_system_ai_task_chain_general_task_list_get",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "任务名称",
+                "default": "",
+                "title": "Name"
+              },
+              "description": "任务名称"
+            },
+            {
+              "name": "stage",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "学段",
+                "title": "Stage"
+              },
+              "description": "学段"
+            },
+            {
+              "name": "subject",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "integer" }, { "type": "null" }],
+                "description": "学科",
+                "title": "Subject"
+              },
+              "description": "学科"
+            },
+            {
+              "name": "task_type",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "任务类型",
+                "default": "",
+                "title": "Task Type"
+              },
+              "description": "任务类型"
+            },
+            {
+              "name": "creator_name",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "创建人名称",
+                "default": "",
+                "title": "Creator Name"
+              },
+              "description": "创建人名称"
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [{ "type": "string" }, { "type": "null" }],
+                "description": "状态条件",
+                "title": "Status"
+              },
+              "description": "状态条件"
+            },
+            {
+              "name": "start_ctime",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  { "type": "string", "format": "date-time" },
+                  { "type": "null" }
+                ],
+                "description": "起始创建时间",
+                "title": "Start Ctime"
+              },
+              "description": "起始创建时间"
+            },
+            {
+              "name": "end_ctime",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  { "type": "string", "format": "date-time" },
+                  { "type": "null" }
+                ],
+                "description": "截止创建时间",
+                "title": "End Ctime"
+              },
+              "description": "截止创建时间"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "description": "page, 1表示第1页面，默认值为-1，代表不分页。",
+                "default": -1,
+                "title": "Page"
+              },
+              "description": "page, 1表示第1页面，默认值为-1，代表不分页。"
+            },
+            {
+              "name": "size",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "description": "size, 每页条数",
+                "default": 10,
+                "title": "Size"
+              },
+              "description": "size, 每页条数"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResModel_list_AiTaskChain__"
+                  }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/task_one": {
+        "get": {
+          "tags": ["ai_task_chain"],
+          "summary": "One",
+          "description": "查询某个任务",
+          "operationId": "one_recommender_system_ai_task_chain_general_task_one_get",
+          "parameters": [
+            {
+              "name": "biz_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "任务id",
+                "title": "Biz Id"
+              },
+              "description": "任务id"
+            },
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResModel_AiTaskChain_"
+                  }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/create": {
+        "post": {
+          "tags": ["ai_task_chain"],
+          "summary": "Create",
+          "description": "创建任务",
+          "operationId": "create_recommender_system_ai_task_chain_general_create_post",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateReq" }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ResModel_str_" }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/titles_model_url": {
+        "get": {
+          "tags": ["ai_task_chain"],
+          "summary": "Titles Model Url",
+          "description": "提纲文件模板",
+          "operationId": "titles_model_url_recommender_system_ai_task_chain_general_titles_model_url_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ResModel_str_" }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/delete": {
+        "post": {
+          "tags": ["ai_task_chain"],
+          "summary": "Delete",
+          "description": "删除任务",
+          "operationId": "delete_recommender_system_ai_task_chain_general_delete_post",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DeleteReq" }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ResModel_str_" }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/re_run": {
+        "post": {
+          "tags": ["ai_task_chain"],
+          "summary": "Re Run",
+          "description": "继续执行任务",
+          "operationId": "re_run_recommender_system_ai_task_chain_general_re_run_post",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ReRunReq" }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ResModel_str_" }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/upload_stt_res": {
+        "post": {
+          "tags": ["ai_task_chain"],
+          "summary": "Upload Stt Res",
+          "description": "上传stt结果",
+          "operationId": "upload_stt_res_recommender_system_ai_task_chain_general_upload_stt_res_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UploadSttResReq" }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ResModel_str_" }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              }
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/ai_task_chain/general/callback": {
+        "post": {
+          "tags": ["ai_task_chain"],
+          "summary": "Callback",
+          "description": "回调接口",
+          "operationId": "callback_recommender_system_ai_task_chain_general_callback_post",
+          "parameters": [
+            {
+              "name": "biz_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "biz_id",
+                "default": "",
+                "title": "Biz Id"
+              },
+              "description": "biz_id"
+            },
+            {
+              "name": "stage_idx",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "stage_idx",
+                "default": "",
+                "title": "Stage Idx"
+              },
+              "description": "stage_idx"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "title": "Res" }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/ResModel_str_" }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/srt_understanding/srt/srt_slicing": {
+        "post": {
+          "tags": ["srt_understanding"],
+          "summary": "Srt Slicing",
+          "description": "srt切片",
+          "operationId": "srt_slicing_recommender_system_srt_understanding_srt_srt_slicing_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GetSrtSlicingReq" }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              }
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/srt_understanding/srt/send_task": {
+        "post": {
+          "tags": ["srt_understanding"],
+          "summary": "Send Task",
+          "description": "发送srt切片-任务请求",
+          "operationId": "send_task_recommender_system_srt_understanding_srt_send_task_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__api__srt_understanding__srt_req__SendTaskReq"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              }
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/tools/user/login_info": {
+        "get": {
+          "tags": ["tools"],
+          "summary": "User Info",
+          "description": "获取登录时的用户信息",
+          "operationId": "user_info_recommender_system_tools_user_login_info_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/tools/user/one": {
+        "get": {
+          "tags": ["tools"],
+          "summary": "Query One",
+          "description": "查询某用户的信息-不对前端开放",
+          "operationId": "query_one_recommender_system_tools_user_one_get",
+          "parameters": [
+            {
+              "name": "x-dt-accesstoken",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "token信息",
+                "title": "X-Dt-Accesstoken"
+              },
+              "description": "token信息"
+            },
+            {
+              "name": "x-dt-clientid",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "clientid信息",
+                "default": "",
+                "title": "X-Dt-Clientid"
+              },
+              "description": "clientid信息"
+            },
+            {
+              "name": "x-dt-tenant",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "tenant",
+                "default": "",
+                "title": "X-Dt-Tenant"
+              },
+              "description": "tenant"
+            },
+            {
+              "name": "x-dt-brand",
+              "in": "header",
+              "required": false,
+              "schema": {
+                "type": "string",
+                "description": "brand",
+                "default": "",
+                "title": "X-Dt-Brand"
+              },
+              "description": "brand"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/recommender-system/tools/task/send_task": {
+        "post": {
+          "tags": ["tools"],
+          "summary": "Send Task",
+          "description": "发生数据更新任务",
+          "operationId": "send_task_recommender_system_tools_task_send_task_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__api__tools__task_req__SendTaskReq"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": { "application/json": { "schema": {} } }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Res" }
+                }
+              }
+            },
+            "500": { "description": "Internal Server Error" },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "AiTaskChain": {
+          "properties": {
+            "_id": { "type": "string", "title": " Id" },
+            "biz_id": {
+              "type": "string",
+              "title": "Biz Id",
+              "description": "任务ID",
+              "default": ""
+            },
+            "biz_type": {
+              "type": "string",
+              "title": "Biz Type",
+              "description": "任务类型",
+              "default": ""
+            },
+            "creator": {
+              "type": "string",
+              "title": "Creator",
+              "description": "创建人user_id",
+              "default": ""
+            },
+            "creator_name": {
+              "type": "string",
+              "title": "Creator Name",
+              "description": "创建人名称",
+              "default": ""
+            },
+            "req": {
+              "type": "object",
+              "title": "Req",
+              "description": "任务入参"
+            },
+            "stage_list": {
+              "items": { "type": "string" },
+              "type": "array",
+              "title": "Stage List",
+              "description": "任务index列表"
+            },
+            "stage_detail": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/StageDetail"
+              },
+              "type": "object",
+              "title": "Stage Detail",
+              "description": "任务map"
+            },
+            "record": {
+              "items": { "type": "object" },
+              "type": "array",
+              "title": "Record",
+              "description": "",
+              "default": []
+            },
+            "status": {
+              "type": "string",
+              "title": "Status",
+              "description": "任务状态",
+              "default": ""
+            },
+            "status_log": {
+              "type": "string",
+              "title": "Status Log",
+              "description": "状态描述",
+              "default": ""
+            },
+            "ctime": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Ctime",
+              "description": "创建时间",
+              "default": "2024-01-02T16:01:00.551896+08:00"
+            },
+            "mtime": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Mtime",
+              "description": "修改时间",
+              "default": "2024-01-02T16:01:00.552016+08:00"
+            }
+          },
+          "type": "object",
+          "required": ["req", "stage_list", "stage_detail"],
+          "title": "AiTaskChain"
+        },
+        "Body_upload_by_file_recommender_system_news_information_news_upload_post": {
+          "properties": {
+            "file": {
+              "type": "string",
+              "format": "binary",
+              "title": "File",
+              "description": "行业资讯表格文件"
+            }
+          },
+          "type": "object",
+          "required": ["file"],
+          "title": "Body_upload_by_file_recommender_system_news_information_news_upload_post"
+        },
+        "CreateReq": {
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "任务名称"
+            },
+            "stage": {
+              "type": "integer",
+              "title": "Stage",
+              "description": "学段"
+            },
+            "stage_name": {
+              "type": "string",
+              "title": "Stage Name",
+              "description": "学段名称"
+            },
+            "subject": {
+              "type": "integer",
+              "title": "Subject",
+              "description": "学科"
+            },
+            "subject_name": {
+              "type": "string",
+              "title": "Subject Name",
+              "description": "学科名称"
+            },
+            "task_type": {
+              "type": "string",
+              "title": "Task Type",
+              "description": "任务类型"
+            },
+            "url": {
+              "type": "string",
+              "title": "Url",
+              "description": "视频url地址"
+            },
+            "titles": {
+              "anyOf": [
+                { "items": { "type": "string" }, "type": "array" },
+                { "type": "null" }
+              ],
+              "title": "Titles",
+              "description": "视频标注信息"
+            },
+            "titles_url": {
+              "type": "string",
+              "title": "Titles Url",
+              "description": "视频标注信息url地址",
+              "default": ""
+            }
+          },
+          "type": "object",
+          "required": [
+            "name",
+            "stage",
+            "stage_name",
+            "subject",
+            "subject_name",
+            "task_type",
+            "url"
+          ],
+          "title": "CreateReq"
+        },
+        "DeleteReq": {
+          "properties": {
+            "biz_id": { "type": "string", "title": "Biz Id", "description": "" }
+          },
+          "type": "object",
+          "required": ["biz_id"],
+          "title": "DeleteReq"
+        },
+        "GetSrtSlicingReq": {
+          "properties": {
+            "model": {
+              "type": "string",
+              "title": "Model",
+              "description": "模型名称",
+              "default": "gpt-4"
+            },
+            "temperature": {
+              "type": "number",
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "title": "Temperature",
+              "description": "温度值",
+              "default": 0.1
+            },
+            "srt_link": {
+              "type": "string",
+              "title": "Srt Link",
+              "description": "srt文件链接"
+            },
+            "prompt": {
+              "type": "object",
+              "title": "Prompt",
+              "description": "prompt",
+              "default": {
+                "prompt_name": "lesson_plan_presentation",
+                "subject": "历史",
+                "titles": []
+              }
+            },
+            "token": {
+              "type": "string",
+              "title": "Token",
+              "description": "token值",
+              "default": ""
+            }
+          },
+          "type": "object",
+          "required": ["srt_link"],
+          "title": "GetSrtSlicingReq"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": { "$ref": "#/components/schemas/ValidationError" },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "ReRunReq": {
+          "properties": {
+            "biz_id": { "type": "string", "title": "Biz Id", "description": "" }
+          },
+          "type": "object",
+          "required": ["biz_id"],
+          "title": "ReRunReq"
+        },
+        "Res": {
+          "properties": {
+            "data": { "title": "Data", "description": "数据信息" },
+            "status": {
+              "allOf": [{ "$ref": "#/components/schemas/ResStatus" }],
+              "description": "status信息"
+            },
+            "timestamp": {
+              "type": "integer",
+              "title": "Timestamp",
+              "description": "时间戳 毫秒级"
+            }
+          },
+          "type": "object",
+          "required": ["data", "status", "timestamp"],
+          "title": "Res",
+          "description": "\n    给用户展示的错误提示\n    "
+        },
+        "ResModel_AiTaskChain_": {
+          "properties": {
+            "data": {
+              "anyOf": [
+                { "$ref": "#/components/schemas/AiTaskChain" },
+                { "type": "null" }
+              ]
+            },
+            "status": { "$ref": "#/components/schemas/ResStatus" },
+            "timestamp": { "type": "integer", "title": "Timestamp" }
+          },
+          "type": "object",
+          "required": ["data", "status", "timestamp"],
+          "title": "ResModel[AiTaskChain]"
+        },
+        "ResModel_list_AiTaskChain__": {
+          "properties": {
+            "data": {
+              "anyOf": [
+                {
+                  "items": { "$ref": "#/components/schemas/AiTaskChain" },
+                  "type": "array"
+                },
+                { "type": "null" }
+              ],
+              "title": "Data"
+            },
+            "status": { "$ref": "#/components/schemas/ResStatus" },
+            "timestamp": { "type": "integer", "title": "Timestamp" }
+          },
+          "type": "object",
+          "required": ["data", "status", "timestamp"],
+          "title": "ResModel[list[AiTaskChain]]"
+        },
+        "ResModel_str_": {
+          "properties": {
+            "data": {
+              "anyOf": [{ "type": "string" }, { "type": "null" }],
+              "title": "Data"
+            },
+            "status": { "$ref": "#/components/schemas/ResStatus" },
+            "timestamp": { "type": "integer", "title": "Timestamp" }
+          },
+          "type": "object",
+          "required": ["data", "status", "timestamp"],
+          "title": "ResModel[str]"
+        },
+        "ResStatus": {
+          "properties": {
+            "code": {
+              "type": "integer",
+              "title": "Code",
+              "description": "http 状态码",
+              "default": 400
+            },
+            "desc": {
+              "type": "string",
+              "title": "Desc",
+              "description": "描述",
+              "default": ""
+            }
+          },
+          "type": "object",
+          "title": "ResStatus"
+        },
+        "StageDetail": {
+          "properties": {
+            "stage_idx": {
+              "type": "string",
+              "title": "Stage Idx",
+              "description": "任务index"
+            },
+            "req": {
+              "type": "object",
+              "title": "Req",
+              "description": "任务入参"
+            },
+            "res": {
+              "type": "object",
+              "title": "Res",
+              "description": "任务回参"
+            },
+            "status": {
+              "type": "string",
+              "title": "Status",
+              "description": "任务状态",
+              "default": ""
+            },
+            "status_log": {
+              "type": "string",
+              "title": "Status Log",
+              "description": "状态描述",
+              "default": ""
+            },
+            "ctime": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Ctime",
+              "description": "创建时间",
+              "default": "2024-01-02T16:01:00.548794+08:00"
+            },
+            "mtime": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Mtime",
+              "description": "修改时间",
+              "default": "2024-01-02T16:01:00.548909+08:00"
+            }
+          },
+          "type": "object",
+          "required": ["stage_idx", "req", "res"],
+          "title": "StageDetail"
+        },
+        "UploadSttResReq": {
+          "properties": {
+            "biz_id": {
+              "type": "string",
+              "title": "Biz Id",
+              "description": "任务id"
+            },
+            "url": {
+              "type": "string",
+              "title": "Url",
+              "description": "srt文件链接"
+            }
+          },
+          "type": "object",
+          "required": ["biz_id", "url"],
+          "title": "UploadSttResReq"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": { "type": "string", "title": "Message" },
+            "type": { "type": "string", "title": "Error Type" }
+          },
+          "type": "object",
+          "required": ["loc", "msg", "type"],
+          "title": "ValidationError"
+        },
+        "app__api__srt_understanding__srt_req__SendTaskReq": {
+          "properties": {
+            "model": {
+              "type": "string",
+              "title": "Model",
+              "description": "模型名称",
+              "default": "gpt-4"
+            },
+            "temperature": {
+              "type": "number",
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "title": "Temperature",
+              "description": "温度值",
+              "default": 0.1
+            },
+            "srt_link": {
+              "type": "string",
+              "title": "Srt Link",
+              "description": "srt文件链接"
+            },
+            "prompt": {
+              "type": "object",
+              "title": "Prompt",
+              "description": "prompt",
+              "default": {
+                "prompt_name": "lesson_plan_presentation",
+                "subject": "历史",
+                "titles": []
+              }
+            },
+            "callback_url": {
+              "type": "string",
+              "title": "Callback Url",
+              "description": "回调地址",
+              "default": ""
+            }
+          },
+          "type": "object",
+          "required": ["srt_link"],
+          "title": "SendTaskReq"
+        },
+        "app__api__tools__task_req__SendTaskReq": {
+          "properties": {
+            "token": {
+              "type": "string",
+              "title": "Token",
+              "description": "token值",
+              "default": ""
+            },
+            "start_time": {
+              "type": "string",
+              "title": "Start Time",
+              "description": "开始月份",
+              "default": ""
+            },
+            "end_time": {
+              "type": "string",
+              "title": "End Time",
+              "description": "结束月份",
+              "default": ""
+            },
+            "force_update": {
+              "type": "boolean",
+              "title": "Force Update",
+              "description": "是否是强制更新",
+              "default": false
+            },
+            "fn": {
+              "type": "string",
+              "title": "Fn",
+              "description": "指定执行某一个函数",
+              "default": ""
+            }
+          },
+          "type": "object",
+          "title": "SendTaskReq"
+        }
+      }
+    }
+  }
+  

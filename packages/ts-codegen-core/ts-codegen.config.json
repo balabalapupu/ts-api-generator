@@ -1,20 +1,21 @@
 {
-  "outputFolder": "./api",
-  "requestCreateLib": "../config/axios.config",
+  "outputFolder": "clients",
+  "requestCreateLib": "../examples/utils/createRequest",
   "requestCreateMethod": "createRequest",
   "apiSpecsPaths": [
     {
-      "path": "https://swagger-dev-classic.3ren.cn/tenant-center//v2/api-docs",
-      "name": "tenant-center",
+      "path": "https://xxxxx//v2/api-docs",
+      "name": "xxx-center",
       "update": true,
       "updateRequest": [
-        "/brand/getLatestVerCode",
-        "/brand/getLatestBrand"
+        "/brand/xx",
+        "/brand/xx"
       ]
     }
   ],
   "options": {
     "withComments": true,
+    "typeWithPrefix": true,
     "backwardCompatible": true,
     "withServiceNameInHeader": true
   }

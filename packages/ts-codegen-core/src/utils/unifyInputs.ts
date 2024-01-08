@@ -3,7 +3,7 @@ import { IServer, IOpenAPI } from "../__types__/OpenAPI";
 import { isEmpty, keys } from "lodash";
 import { URL } from "url";
 
-const isOpenApi = (v: any): v is IOpenAPI => v.openapi;
+export const isOpenApi = (v: any): v is IOpenAPI => v.openapi;
 
 export enum DataType {
   openapi,

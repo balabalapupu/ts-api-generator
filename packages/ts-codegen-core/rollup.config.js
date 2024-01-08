@@ -1,8 +1,8 @@
-import path from "path";
+const path =  require("path");
 // @ts-ignore
-import rollupBabel from "rollup-plugin-babel";
+const rollupBabel = require("rollup-plugin-babel");
 // @ts-ignore
-import rollupTypeScript from "rollup-plugin-typescript";
+const rollupTypeScript = require("rollup-plugin-typescript");
 
 const pkg = require(path.join(process.cwd(), "package.json"));
 

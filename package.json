@@ -1,13 +1,15 @@
 {
-  "name": "@ts-tools/ts-api-generator",
-  "private": true,
+  "name": "ladder-swagger-to-ts",
+  "version": "1.6.1",
   "description": "Typescript code generator, which is able to convert swagger to ts code.",
+  "bin": {
+    "ladder": "packages/ts-codegen-cli/bin/cli.js"
+  },
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
     "dev": "turbo run dev",
-    "release": "turbo run deploy",
-    "postinstall": "husky install"
+    "release": "turbo run deploy"
   },
   "repository": {
     "type": "git",
@@ -34,7 +36,6 @@
     "babel-core": "6.26.x",
     "babel-jest": "29.6.x",
     "babel-plugin-pure-calls-annotation": "0.4.x",
-    "husky": "^8.0.3",
     "jest": "29.6.x",
     "lerna": "^7.1.5",
     "lint-staged": "^13.2.3",
